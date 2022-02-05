@@ -56,10 +56,10 @@ BOOL RetrieveTicketfromCache() {
 		{
 			for (i = 0; i < KerberosCacheResponse->CountOfTickets; i++) {
 				ResponseLength = sizeof(KERB_RETRIEVE_TKT_REQUEST) + KerberosCacheResponse->Tickets[i].ServerName.MaximumLength;
-				if (KerberosRequest = (PKERB_RETRIEVE_TKT_REQUEST)LocalAlloc(LPTR, ResponseLength)) // LPTR implicates KERB_ETYPE_NULL
+				if (KerberosRequest = (PKERB_RETRIEVE_TKT_REQUEST)LocalAlloc(LPTR, ResponseLength)) 
 				{
 					KerberosRequest->MessageType = KerbRetrieveEncodedTicketMessage;
-					KerberosRequest->CacheOptions = /*KERB_RETRIEVE_TICKET_USE_CACHE_ONLY | */KERB_RETRIEVE_TICKET_AS_KERB_CRED;
+					KerberosRequest->CacheOptions = KERB_RETRIEVE_TICKET_AS_KERB_CRED;
 					KerberosRequest->TicketFlags = KerberosCacheResponse->Tickets[i].TicketFlags;
 					KerberosRequest->TargetName = KerberosCacheResponse->Tickets[i].ServerName;
 					KerberosRequest->TargetName.Buffer = (PWSTR)((PBYTE)KerberosRequest + sizeof(KERB_RETRIEVE_TKT_REQUEST));
